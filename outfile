@@ -1,0 +1,290 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.3
+-- Dumped by pg_dump version 12.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: abdullahbinmahfouz
+--
+
+CREATE TABLE public.alembic_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE public.alembic_version OWNER TO abdullahbinmahfouz;
+
+--
+-- Name: artists; Type: TABLE; Schema: public; Owner: abdullahbinmahfouz
+--
+
+CREATE TABLE public.artists (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    city character varying(120) NOT NULL,
+    state character varying(120) NOT NULL,
+    phone character varying(120) NOT NULL,
+    genres character varying[] NOT NULL,
+    image_link character varying(500),
+    facebook_link character varying(500)
+);
+
+
+ALTER TABLE public.artists OWNER TO abdullahbinmahfouz;
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE; Schema: public; Owner: abdullahbinmahfouz
+--
+
+CREATE SEQUENCE public.artists_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.artists_id_seq OWNER TO abdullahbinmahfouz;
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER SEQUENCE public.artists_id_seq OWNED BY public.artists.id;
+
+
+--
+-- Name: shows; Type: TABLE; Schema: public; Owner: abdullahbinmahfouz
+--
+
+CREATE TABLE public.shows (
+    show_id integer NOT NULL,
+    artist_id integer,
+    venue_id integer,
+    date timestamp without time zone NOT NULL,
+    me integer
+);
+
+
+ALTER TABLE public.shows OWNER TO abdullahbinmahfouz;
+
+--
+-- Name: shows_show_id_seq; Type: SEQUENCE; Schema: public; Owner: abdullahbinmahfouz
+--
+
+CREATE SEQUENCE public.shows_show_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.shows_show_id_seq OWNER TO abdullahbinmahfouz;
+
+--
+-- Name: shows_show_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER SEQUENCE public.shows_show_id_seq OWNED BY public.shows.show_id;
+
+
+--
+-- Name: venues; Type: TABLE; Schema: public; Owner: abdullahbinmahfouz
+--
+
+CREATE TABLE public.venues (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    genres character varying[] NOT NULL,
+    city character varying(120) NOT NULL,
+    state character varying(120) NOT NULL,
+    address character varying(120) NOT NULL,
+    phone character varying(120) NOT NULL,
+    image_link character varying(500),
+    facebook_link character varying(500),
+    seeking_description character varying(500)
+);
+
+
+ALTER TABLE public.venues OWNER TO abdullahbinmahfouz;
+
+--
+-- Name: venues_id_seq; Type: SEQUENCE; Schema: public; Owner: abdullahbinmahfouz
+--
+
+CREATE SEQUENCE public.venues_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.venues_id_seq OWNER TO abdullahbinmahfouz;
+
+--
+-- Name: venues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER SEQUENCE public.venues_id_seq OWNED BY public.venues.id;
+
+
+--
+-- Name: artists id; Type: DEFAULT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.artists ALTER COLUMN id SET DEFAULT nextval('public.artists_id_seq'::regclass);
+
+
+--
+-- Name: shows show_id; Type: DEFAULT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.shows ALTER COLUMN show_id SET DEFAULT nextval('public.shows_show_id_seq'::regclass);
+
+
+--
+-- Name: venues id; Type: DEFAULT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.venues ALTER COLUMN id SET DEFAULT nextval('public.venues_id_seq'::regclass);
+
+
+--
+-- Data for Name: alembic_version; Type: TABLE DATA; Schema: public; Owner: abdullahbinmahfouz
+--
+
+COPY public.alembic_version (version_num) FROM stdin;
+9b774294b7de
+\.
+
+
+--
+-- Data for Name: artists; Type: TABLE DATA; Schema: public; Owner: abdullahbinmahfouz
+--
+
+COPY public.artists (id, name, city, state, phone, genres, image_link, facebook_link) FROM stdin;
+1	GUNS N PETALS	San Francisco	CA	326-123-5000	{ROCK,ROLL}	https://images.unsplash.com/photo-1549213783-8284d0336c4f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80	https://www.facebook.com/GunsNPetals
+2	MATT QUEVEDO	New York	NY	300-400-5000	{JAZZ}	https://images.unsplash.com/photo-1495223153807-b916f75de8c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80	https://www.facebook.com/mattquevedo923251523
+3	THE WILD SAX BAND	San Francisco	CA	432-325-5432	{JAZZ,CLASSICAL}	https://images.unsplash.com/photo-1558369981-f9ca78462e61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=794&q=80	\N
+\.
+
+
+--
+-- Data for Name: shows; Type: TABLE DATA; Schema: public; Owner: abdullahbinmahfouz
+--
+
+COPY public.shows (show_id, artist_id, venue_id, date, 2020e) FROM stdin;
+1	1	1	2019-05-21 21:30:00	\N
+3	3	2	2035-04-01 20:00:00	\N
+4	3	2	2035-04-08 20:00:00	\N
+5	3	2	2035-04-15 20:00:00	\N
+2	2	2	2019-06-15 23:00:00	\N
+\.
+
+
+--
+-- Data for Name: venues; Type: TABLE DATA; Schema: public; Owner: abdullahbinmahfouz
+--
+
+COPY public.venues (id, name, genres, city, state, address, phone, image_link, facebook_link, seeking_description) FROM stdin;
+1	THE MUSICAL HOP	{JAZZ,REGGAE,SWING,CLASSICAL,FOLK}	San Francisco	CA	1015 Folsom Street	123-123-1234	https://www.themusicalhop.com	https://www.facebook.com/TheMusicalHop	\N
+2	PARK SQUARE LIVE MUSIC & COFFEE	{ROCK,ROLL,JAZZ,CLASSICAL,FOLK}	San Francisco	CA	34 Whiskey Moore Ave	415-000-1234	https://www.parksquarelivemusicandcoffee.com	https://www.facebook.com/ParkSquareLiveMusicAndCoffee	\N
+3	THE DUELING PIANOS BAR	{CLASSICAL,R&B,HIP-HOP}	New York	NY	335 Delancey Street	914-003-1132	https://www.theduelingpianos.com	https://www.facebook.com/theduelingpianos	\N
+\.
+
+
+--
+-- Name: artists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: abdullahbinmahfouz
+--
+
+SELECT pg_catalog.setval('public.artists_id_seq', 3, true);
+
+
+--
+-- Name: shows_show_id_seq; Type: SEQUENCE SET; Schema: public; Owner: abdullahbinmahfouz
+--
+
+SELECT pg_catalog.setval('public.shows_show_id_seq', 5, true);
+
+
+--
+-- Name: venues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: abdullahbinmahfouz
+--
+
+SELECT pg_catalog.setval('public.venues_id_seq', 4, true);
+
+
+--
+-- Name: alembic_version alembic_version_pkc; Type: CONSTRAINT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.alembic_version
+    ADD CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: artists artists_pkey; Type: CONSTRAINT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.artists
+    ADD CONSTRAINT artists_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shows shows_pkey; Type: CONSTRAINT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.shows
+    ADD CONSTRAINT shows_pkey PRIMARY KEY (show_id);
+
+
+--
+-- Name: venues venues_pkey; Type: CONSTRAINT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.venues
+    ADD CONSTRAINT venues_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shows shows_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.shows
+    ADD CONSTRAINT shows_artist_id_fkey FOREIGN KEY (artist_id) REFERENCES public.artists(id) ON DELETE CASCADE;
+
+
+--
+-- Name: shows shows_venue_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: abdullahbinmahfouz
+--
+
+ALTER TABLE ONLY public.shows
+    ADD CONSTRAINT shows_venue_id_fkey FOREIGN KEY (venue_id) REFERENCES public.venues(id) ON DELETE CASCADE;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
